@@ -18,8 +18,8 @@ module.exports = {
     const string = `SELECT * FROM global_leaderboards;`;
     try {
       const { rows } = await db.query(string);
-      console.log(result);
-      res.status(200).send(rows[0]);
+      console.log( rows );
+      res.status(200).send(rows);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

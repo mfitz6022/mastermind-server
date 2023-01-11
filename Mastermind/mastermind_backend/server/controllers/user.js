@@ -2,6 +2,7 @@ const db = require('../../db/index.js');
 const bcrypt = require('bcrypt');
 
 module.exports = {
+
   createUser: async (req, res) => {
     const {body: {username, password}} = req;
     const string = `INSERT INTO users (username, user_password) VALUES ($1, $2);`;
@@ -12,8 +13,8 @@ module.exports = {
       const response = await db.query(string, params);
       res.sendStatus(201);
     } catch (err) {
-      console.log(err);
-      res.status(400).send("The password provided does not match.");
+      console.log(err.detail);
+      res.status(400).send();
     }
   },
 
@@ -49,7 +50,7 @@ module.exports = {
     const string = `SELECT * FROM user_scores;`;
     try {
       const { rows } = await db.query(string);
-      res.status(200).send(rows[0]);
+      res.status(200).send(rows);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

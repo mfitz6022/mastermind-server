@@ -11,12 +11,13 @@ const server = require('http').createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:8000',
+    origin: 'http://localhost:8080',
     credentials: 'true',
   }
 })
 
 app.use(helmet());
+app.use(cors());
 app.use(express.json());
 app.use('/', router);
 

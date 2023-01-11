@@ -7,7 +7,7 @@ CREATE DATABASE mastermind;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  username VARCHAR(15) NOT NULL,
+  username VARCHAR(15) UNIQUE NOT NULL,
   user_password VARCHAR(255) NOT NULL
 );
 
