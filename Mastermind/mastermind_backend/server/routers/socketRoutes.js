@@ -1,10 +1,10 @@
 const { Socket } = require('socket.io');
 const { join, send, leave } = require('../controllers/messages.js');
 const { ready, unReady } = require('../controllers/gameplay.js');
+let clients = 0;
 
 module.exports = {
   socketRouter: async (socket) => {
-    let clients = 0;
     console.log(`user: ${socket.id} has connected to the socket channel`);
     clients++;
 
@@ -30,6 +30,7 @@ module.exports = {
 
     socket.on('disconnect',  () => {
       console.log(`user: ${socket.id} has disconnected from the socket  channel`);
+      clients--;
     })
   }
 }
