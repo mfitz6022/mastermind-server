@@ -25,4 +25,4 @@ server.listen(process.env.PORT, () => {
   console.log(`App listening on ${process.env.PORT}`);
 });
 
-io.on('connect', socketRouter);
+io.on('connection', (socketRouter));

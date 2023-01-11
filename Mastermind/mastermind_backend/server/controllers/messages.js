@@ -1,6 +1,13 @@
 module.exports = {
-  join: (socket, userData) => {
-    socket.join(userData.rooms)
+  join: (socket, clients, userData) => {
+    console.log(`user: ${userData} has joined room: ${clients}`);
+    let room = Math.round(clients/2);
+    let data = {
+      username: userData,
+      room: room
+    }
+    socket.join(room)
+    socket.emit('joined', data);
   },
 
   send: (socket, messageData) => {

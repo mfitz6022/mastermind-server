@@ -4,10 +4,12 @@ const { ready, unReady } = require('../controllers/gameplay.js');
 
 module.exports = {
   socketRouter: async (socket) => {
+    let clients = 0;
     console.log(`user: ${socket.id} has connected to the socket channel`);
+    clients++;
 
     socket.on('join_room', (userData) => {
-      join(socket, userData);
+      join(socket, clients, userData);
     })
 
     socket.on('send_message', (messageData) => {
