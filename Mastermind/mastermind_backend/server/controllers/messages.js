@@ -1,12 +1,9 @@
 module.exports = {
-  join: (socket, clients, userData) => {
-    let room = Math.round(clients/2);
-    let data = {
-      username: userData,
-      room: room
-    }
-    socket.join(room)
-    socket.emit('joined', data);
+  join: async (socket, roomData) => {
+    const { username, room } = roomData;
+    await socket.join(room);
+    console.log(`user: ${username} has joined room: ${room}`);
+    socket.emit('joined', roomData);
   },
 
   send: (socket, messageData) => {

@@ -5,5 +5,9 @@ module.exports = {
 
   unReady: (socket, gameData) => {
     socket.broadcast.to(gameData.room).emit('player_un_ready', gameData.status);
+  },
+
+  transmit: (socket, inputData) => {
+    socket.broadcast.to(inputData.room).emit('receive_input', inputData.input);
   }
 }

@@ -1,6 +1,6 @@
 const { Socket } = require('socket.io');
 const { join, send, leave } = require('../controllers/messages.js');
-const { ready, unReady } = require('../controllers/gameplay.js');
+const { ready, unReady, transmit } = require('../controllers/gameplay.js');
 let clients = 0;
 
 module.exports = {
@@ -8,12 +8,17 @@ module.exports = {
     console.log(`user: ${socket.id} has connected to the socket channel`);
     clients++;
 
-    socket.on('join_room', (userData) => {
-      join(socket, clients, userData);
+    socket.on('join', (roomData) => {
+      join(socket, roomData);
     })
 
     socket.on('send_message', (messageData) => {
+      console.log(`message sent ${messageData}`)
       send(socket, messageData);
+    })
+
+    socket.on('transmit_input', (inputData) => {
+      transmit(socket, inputData);
     })
 
     socket.on('ready', (gameData) => {

@@ -19,12 +19,12 @@ module.exports = {
   },
 
   authenticateUser: async (req, res) => {
+    const {body: {username, password}} = req;
     const string = `SELECT user_password FROM users WHERE username = $1;`;
-    const params = [req.body.username];
-    console.log(req.body.username);
+    const params = [username];
     try {
       const { rows } = await db.query(string, params);
-      const authentication = await bcrypt.compare(req.body.password, rows[0].user_password)
+      const authentication = await bcrypt.compare(password, rows[0].user_password)
       console.log(authentication);
       res.status(201).send(authentication);
     } catch (err) {
