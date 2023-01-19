@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js",
     "devStart": "nodemon server/index.js",
     "dbStart": "nodemon db/index.js",
     "seed": "psql -f schema.sql"

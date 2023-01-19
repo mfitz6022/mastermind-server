@@ -37,6 +37,7 @@ module.exports = {
     const {body: { user, difficulty, time, attempts, score }} = req;
     const string = `INSERT INTO user_scores (username, difficulty, time, attempts, score) VALUES ($1, $2, $3, $4, $5);`;
     const params = [user, difficulty, time, attempts, score];
+    console.log(req.body);
     try {
       await db.query(string, params);
       res.sendStatus(201);
