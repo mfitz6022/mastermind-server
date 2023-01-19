@@ -11,7 +11,7 @@ const server = require('http').createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: 'http://54.177.160.29:8080',
+    origin: 'http://54.151.2.48:8080',
     credentials: 'true',
   }
 })

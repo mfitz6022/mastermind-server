@@ -34,9 +34,9 @@ module.exports = {
   },
 
   createUserScores: async (req, res) => {
-    const {body: { user, difficulty, time, attempts, score }} = req;
+    const {body: { username, difficulty, time, attempts, score }} = req;
     const string = `INSERT INTO user_scores (username, difficulty, time, attempts, score) VALUES ($1, $2, $3, $4, $5);`;
-    const params = [user, difficulty, time, attempts, score];
+    const params = [username, difficulty, time, attempts, score];
     console.log(req.body);
     try {
       await db.query(string, params);
@@ -49,12 +49,24 @@ module.exports = {
 
   readUserScores: async (req, res) => {
     const string = `SELECT * FROM user_scores WHERE username=$1 ORDER BY score DESC;`;
-    const params = [req.query.user];
-    console.log(req.query.user)
+    const params = [req.query.username];
+    console.log(req.query.username)
     try {
       const { rows } = await db.query(string, params);
       console.log(rows);
       res.status(200).send(rows);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  },
+
+  deleteUser: async (req, res) => {
+    const string = `DELETE FROM users WHERE username=$1;`
+    const params = [req.body.username];
+    try {
+      await db.query(string, params);
+      res.sendStatus(202);
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

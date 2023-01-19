@@ -1,5 +1,5 @@
 const Router = require('express-promise-router');
-const { createUser, authenticateUser, createUserScores, readUserScores } = require('../controllers/user.js');
+const { createUser, authenticateUser, createUserScores, readUserScores, deleteUser } = require('../controllers/user.js');
 const { createGlobalScores, readGlobalLeaderboards } = require('../controllers/global.js');
 const { getPublicRooms, getPrivateRooms, createPrivateRooms, joinPrivateRooms, publicRooms } = require('../controllers/rooms.js');
 
@@ -22,5 +22,7 @@ router.get('/users/leaderboards', readUserScores);
 router.get('/global/rooms/public', getPublicRooms);
 
 router.get('/global/rooms/private', getPrivateRooms);
+
+router.delete('/users/delete', deleteUser);
 
 module.exports = router;
