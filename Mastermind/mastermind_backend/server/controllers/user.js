@@ -13,14 +13,14 @@ module.exports = {
       const response = await db.query(string, params);
       res.sendStatus(201);
     } catch (err) {
-      console.log(err.detail);
+      console.log(err);
       res.status(400).send();
     }
   },
 
   authenticateUser: async (req, res) => {
     const {body: {username, password}} = req;
-    const string = `SELECT user_password FROM users WHERE username = $1;`;
+    const string = `SELECT user_password FROM users WHERE username=$1;`;
     const params = [username];
     try {
       const { rows } = await db.query(string, params);
@@ -34,9 +34,9 @@ module.exports = {
   },
 
   createUserScores: async (req, res) => {
-    const {body: { difficulty, time, attempts, hints, score }} = req;
-    const string = `INSERT INTO user_scores (difficulty, time_elapsed, attempts, hints_used, score) VALUES ($1, $2, $3, $4, $5);`;
-    const params = [difficulty, time, attempts, hints, score];
+    const {body: { user, difficulty, time, attempts, score }} = req;
+    const string = `INSERT INTO user_scores (username, difficulty, time, attempts, score) VALUES ($1, $2, $3, $4, $5);`;
+    const params = [user, difficulty, time, attempts, score];
     try {
       await db.query(string, params);
       res.sendStatus(201);
@@ -47,9 +47,12 @@ module.exports = {
   },
 
   readUserScores: async (req, res) => {
-    const string = `SELECT * FROM user_scores;`;
+    const string = `SELECT * FROM user_scores WHERE username=$1 ORDER BY score DESC;`;
+    const params = [req.query.user];
+    console.log(req.query.user)
     try {
-      const { rows } = await db.query(string);
+      const { rows } = await db.query(string, params);
+      console.log(rows);
       res.status(200).send(rows);
     } catch (err) {
       console.log(err);

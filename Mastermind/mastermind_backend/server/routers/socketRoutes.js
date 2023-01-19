@@ -1,6 +1,6 @@
 const { Socket } = require('socket.io');
 const { join, send, leave } = require('../controllers/messages.js');
-const { ready, unReady, transmit } = require('../controllers/gameplay.js');
+const { setCode, ready, unReady, transmit, submit } = require('../controllers/gameplay.js');
 let clients = 0;
 
 module.exports = {
@@ -12,12 +12,16 @@ module.exports = {
       join(socket, roomData);
     })
 
+    socket.on('send_code', (codeData) => {
+      setCode(socket, codeData);
+    })
+
     socket.on('send_message', (messageData) => {
-      console.log(`message sent ${messageData}`)
       send(socket, messageData);
     })
 
     socket.on('transmit_input', (inputData) => {
+      console.log(inputData.roomData, inputData.input, inputData.index);
       transmit(socket, inputData);
     })
 
@@ -27,6 +31,10 @@ module.exports = {
 
     socket.on('un_ready', (gameData) => {
       unReady(socket, gameData);
+    })
+
+    socket.on('send_attempt', (attemptData) => {
+      submit(socket, attemptData);
     })
 
     socket.on('leave_room', (userData) => {

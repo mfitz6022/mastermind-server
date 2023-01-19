@@ -15,7 +15,6 @@ router.post('/global/rooms/private/create', createPrivateRooms);
 
 router.post('/global/rooms/private/join', joinPrivateRooms);
 
-// change to accomodate leaderboard changes
 router.get('/global/leaderboards', readGlobalLeaderboards);
 
 router.get('/users/leaderboards', readUserScores);

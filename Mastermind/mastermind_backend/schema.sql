@@ -11,19 +11,17 @@ CREATE TABLE users (
   user_password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE global_leaderboards (
-  username VARCHAR(15) NOT NULL,
-  difficulty VARCHAR(10) NOT NULL,
-  time_elapsed TIME NOT NULL,
-  attempts SMALLINT NOT NULL,
-  hints_used SMALLINT NOT NULL,
-  score SMALLINT NOT NULL
+CREATE TABLE private_rooms (
+  room_id SERIAL PRIMARY KEY,
+  owner VARCHAR(15) NOT NULL,
+  room_name VARCHAR(15) NOT NULL,
+  room_password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE user_scores (
+  username VARCHAR(15) NOT NULL,
+  time VARCHAR(10) NOT NULL,
   difficulty VARCHAR(10) NOT NULL,
-  time_elapsed TIME NOT NULL,
   attempts SMALLINT NOT NULL,
-  hints_used SMALLINT NOT NULL,
   score SMALLINT NOT NULL
 );
