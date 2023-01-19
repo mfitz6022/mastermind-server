@@ -3,7 +3,7 @@ module.exports = {
     const { username, room } = roomData;
     await socket.join(room);
     console.log(`user: ${username} has joined room: ${room}`);
-    socket.emit('joined', roomData);
+    socket.broadcast.to(roomData.room).emit('joined', roomData);
   },
 
   send: (socket, messageData) => {

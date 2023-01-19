@@ -1,7 +1,7 @@
 module.exports = {
   setCode: (socket, codeData) => {
-    socket.broadcast.to(codeData.room).emit('receive_code', codeData.code)
-    console.log(`code to send: ${codeData.code}`);
+    socket.broadcast.to(codeData.room).emit('receive_code', codeData)
+    console.log(`code to send: ${codeData}`);
   },
 
   ready: (socket, gameData) => {
